@@ -5,11 +5,12 @@ from enum import Enum
 from typing import Dict, List, Optional, Tuple, Union
 
 import requests
-from pypushdeer import PushDeer
+# from pypushdeer import PushDeer
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from logging_config import init_logger
+from pushdeerapi import PushDeerApi
 
 
 class CheckinStatus(Enum):
@@ -479,7 +480,7 @@ class PushService:
             return False
 
         try:
-            pushdeer = PushDeer(pushkey=self.config.push_key)
+            pushdeer = PushDeerApi(pushkey=self.config.push_key)
             pushdeer.send_text(title, desp=content)
             logger.info(f"{LogEmoji.SUCCESS} 推送通知发送成功。")
             return True
